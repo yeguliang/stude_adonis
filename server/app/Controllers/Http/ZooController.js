@@ -4,6 +4,45 @@ const _ = require("lodash");
 const Database = use("Database");
 const Zoo = use("App/Models/Zoo");
 
+// 示例：
+// async index() {
+//   // return await Database.table("zoo").select("*");
+//   // let [result] = await Database.raw(`SELECT * FROM zoo;`);
+//   // return result;
+
+//   let result = await Zoo.all();
+//   return result;
+// }
+// async show({ params }) {
+//   let findOne = await Zoo.find(params.id);
+//   return findOne || { error: "no find" };
+// }
+// async store({ request, params, response }) {
+//   const newAnimal = request.all();
+//   if (!newAnimal.name) {
+//     throw { error: "inval params" };
+//   }
+//   let result = await Zoo.create(newAnimal);
+//   response.json(result);
+// }
+// async update({ request, params }) {
+//   const updated = request.all();
+//   let findOne = await Zoo.find(params.id);
+//   if (findOne) {
+//     _.assign(findOne, updated);
+//     await findOne.save();
+//   }
+//   return { findOne };
+// }
+// async destroy({ params }) {
+//   let findOne = await Zoo.find(params.id);
+//   if (findOne) {
+//     await findOne.delete();
+//   }
+//   return findOne;
+// }
+// }
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
