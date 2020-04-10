@@ -41,7 +41,9 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create({ request, response, view }) {}
+  async create({ request, response, view }) {
+    const newData = request.all();
+  }
 
   /**
    * Create/save a new user.
