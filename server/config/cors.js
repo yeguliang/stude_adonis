@@ -16,8 +16,13 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
+
+  // origin: function (currentOrigin) {
+  //   return currentOrigin === "http://yapi.stgame";
+  // },
+  origin: false,
   //  允许跨域
-  origin: true,
+  // origin: true,
 
   /*
   |--------------------------------------------------------------------------
@@ -74,8 +79,9 @@ module.exports = {
   | boolean.
   |
   */
+  credentials: false,
   //  允许跨域
-  credentials: true,
+  // credentials: true,
 
   /*
   |--------------------------------------------------------------------------

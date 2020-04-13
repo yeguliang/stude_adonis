@@ -14,9 +14,12 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
+
 const Route = use("Route");
-Route.resource("user", "UserController");
-Route.resource("zoo", "ZooController");
+
+require("./../app/routersW100");
+// Route.resource("user", "UserController");
+// Route.resource("zoo", "ZooController");
 // Route.on('/').render('welcome')
 // Route.get("/", () => {
 //   return "hellow ";
