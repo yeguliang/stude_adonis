@@ -42,7 +42,8 @@ class UserController {
    * @param {View} ctx.view
    */
   async create({ request, response, view }) {
-    const newData = request.all();
+    let result = await User.all();
+    return result;
   }
 
   /**
@@ -53,7 +54,18 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {}
+  async store({ request, response }) {
+    const newUser = await request.all();
+    if (!newUser.name) {
+      throw { error: "name:null" };
+    }
+    if (!newUser.password) {
+      throw { error: "psw:null" };
+    }
+    // return newUser;
+    let result = await User.create(newUser);
+    response.json(result);
+  }
 
   /**
    * Display a single user.
@@ -64,7 +76,10 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, request, response, view }) {
+    const user = User.find(params.id);
+    return user;
+  }
 
   /**
    * Render a form to update an existing user.
@@ -85,7 +100,18 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    let userData = await User.find(params.id);
+    let newUserData = await request.all();
+    if (userData) {
+      _.assign(userData, newUserData);
+      await userData.save();
+      // console.log(userData, newUserData);
+      // return userData;
+    }
+    // return userData;
+    response.json(userData);
+  }
 
   /**
    * Delete a user with id.
@@ -95,7 +121,13 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, request, response }) {
+    let deleteUser = await User.find(params.id);
+    if (deleteUser) {
+      await deleteUser.delete();
+    }
+    response.json(deleteUser);
+  }
 }
 
 module.exports = UserController;

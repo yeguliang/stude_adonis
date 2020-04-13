@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 module.exports = {
   /*
@@ -27,8 +27,7 @@ module.exports = {
     | }
     |
     */
-    directives: {
-    },
+    directives: {},
     /*
     |--------------------------------------------------------------------------
     | Report only
@@ -64,7 +63,7 @@ module.exports = {
     | if you want to know the behavior. https://github.com/helmetjs/helmet/pull/82
     |
     */
-    disableAndroid: true
+    disableAndroid: true,
   },
 
   /*
@@ -80,7 +79,7 @@ module.exports = {
   */
   xss: {
     enabled: true,
-    enableOnOldIE: false
+    enableOnOldIE: false,
   },
 
   /*
@@ -95,7 +94,7 @@ module.exports = {
   |
   | Learn more at https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
   */
-  xframe: 'DENY',
+  xframe: "DENY",
 
   /*
   |--------------------------------------------------------------------------
@@ -131,15 +130,18 @@ module.exports = {
   | routes does have a valid token to execute an action.
   |
   */
+  //  跨站点请求伪造（CSRF）允许攻击者在不知情或未经许可的情况下代表其他用户执行操作。
+  // AdonisJs通过拒绝身份不明的请求来保护您的应用程序免受CSRF攻击。检查具有POST、
+  // PUT和DELETE方法的HTTP请求，以确保来自正确位置的正确人员调用这些请求。
   csrf: {
-    enable: true,
-    methods: ['POST', 'PUT', 'DELETE'],
+    enable: false,
+    methods: ["POST", "PUT", "DELETE"],
     filterUris: [],
     cookieOptions: {
       httpOnly: false,
       sameSite: true,
-      path: '/',
-      maxAge: 7200
-    }
-  }
-}
+      path: "/",
+      maxAge: 7200,
+    },
+  },
+};

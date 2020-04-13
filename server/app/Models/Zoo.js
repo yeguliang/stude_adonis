@@ -18,7 +18,7 @@ class Zoo extends Model {
     return "updatedAt";
   }
   static get hidden() {
-    return ["createdAt", "updatedAt"];
+    return ["id", "createdAt", "updatedAt"];
   }
 }
 
