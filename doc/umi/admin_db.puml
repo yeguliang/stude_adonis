@@ -1,0 +1,114 @@
+@startuml admin_db
+' 规范说明
+' rule_ 默认配置
+' log_ 记录（只读）
+' stat_ 统计（只读）
+' is_ bool类型
+' _At 时间类型
+class activity <<活动>>{
+    +id : int11 <主键>
+    #partnerID:int11<合作方ID>
+    #sponsorID:int11<主办方ID>
+    title: varchar255<活动标题>
+    banner: varchar512 <活动banner图>
+
+    type:varchar64<活动类型>
+    information: varchar255<主办方或讲师信息>
+    startTime: timestamps <开始时间>
+    endTime: timestamps <结束时间>
+    address:json<地址信息>
+    price:int11<门票价格/分>
+    total:int11<报名上限>
+    content:text<活动详情>
+   
+    status:varchar64<活动状态>
+    accept:int11<已报名>
+    deletedAt: int11<删除时间>
+    createdAt: timestamps <创建时间>
+    updatedAt: timestamps <修改时间>
+}
+class user <<用户>>{
+    +id: int11 <主键>
+    openid:varchar64 <openid>
+    mobile:varchar18 <mobile>
+    nickName : varchar64 <用户名>
+    avatarUrl : varchar512 <用户头像>
+    gender : int1 <性别>  '//性别 0：未知、1：先生、2：女士
+    country :varchar64 <国家>
+    province :varchar64 <省>
+    city : varchar64 <市>
+    createdAt: timestamps <创建时间>
+    updatedAt: timestamps <修改时间>
+}
+
+class user_activity <<报名活动>>{
+    +id：int11 <主键>
+    #userID:int11<用户ID>
+    #activityID:int11<活动ID>
+    name: varchar255<姓名>
+    phone: varchar50<电话>
+    email: varchar50<邮箱>
+    activityStatus: varchar50<活动状态>
+    createdAt: timestamps <创建时间>
+
+}
+
+user_activity o-- user
+user_activity o-- activity
+
+class activity_tag <<活动标签>>{
+    +id: int11 <主键>
+    #activityID: int11 <活动ID>
+    icon: varchar255<姓名>
+    name: varchar50<电话>
+    detailInfo: text<详细信息>
+}
+activity_tag o-- activity
+
+
+class wine <<红酒>>{
+    +id:int10 <主键>
+	wine100_no:varchar32 <编号>
+    pic1:varchar512 <酒品图片>
+    winename_cn:varchar255 <中文酒名>
+	winename_en:varchar255 <英文酒名>
+    country:varchar255 <国家>
+    Grape_type:varchar255 <葡萄种类>
+    vintage:varchar32 <年份>
+    alcohol:varchar16 <酒精度>
+    wine_dealer:varchar16 <酒商>
+    link_wine_dealer:varchar16 <酒商联系人姓名>
+    wine_dealer_phone:varchar16 <酒商联系人手机号>
+	createdAt:timestamps <创建时间>
+	updatedAt:timestamps <更新时间>
+}
+class wine_price<<奖项>>{
+    +id:int11<主键>
+    #wineID:int11<红酒ID>
+    text:varchar255<内容>
+    createdAt:timestamps <创建时间>
+	updatedAt:timestamps <更新时间>
+}
+class wine_category<<类别>>{
+    +id:int11<主键>
+    #wineID:int11<红酒ID>
+    text:varchar255<内容>
+    createdAt:timestamps <创建时间>
+	updatedAt:timestamps <更新时间>
+}
+
+wine_price o-- wine
+wine_category o-- wine
+class  country<<国家>>{
+    +id:int11<主键>
+    text:varchar255<内容>
+    createdAt:timestamps <创建时间>
+	updatedAt:timestamps <更新时间>
+}
+class  Grape_type<<葡萄种类>>{
+    +id:int11<主键>
+    text:varchar255<内容>
+    createdAt:timestamps <创建时间>
+	updatedAt:timestamps <更新时间>
+}
+@enduml
