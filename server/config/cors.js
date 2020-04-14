@@ -20,9 +20,9 @@ module.exports = {
   // origin: function (currentOrigin) {
   //   return currentOrigin === "http://yapi.stgame";
   // },
-  origin: false,
+  // origin: false,
   //  允许跨域
-  // origin: true,
+  origin: true,
 
   /*
   |--------------------------------------------------------------------------
@@ -79,9 +79,9 @@ module.exports = {
   | boolean.
   |
   */
-  credentials: false,
+  // credentials: false,
   //  允许跨域
-  // credentials: true,
+  credentials: true,
 
   /*
   |--------------------------------------------------------------------------

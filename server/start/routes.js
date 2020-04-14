@@ -17,8 +17,8 @@
 
 const Route = use("Route");
 
-require("./../app/routersW100");
-// Route.resource("user", "UserController");
+// require("./../app/routersW100");
+Route.resource("user", "UserController");
 // Route.resource("zoo", "ZooController");
 // Route.on('/').render('welcome')
 // Route.get("/", () => {
