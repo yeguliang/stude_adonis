@@ -5,6 +5,10 @@
 ' stat_ 统计（只读）
 ' is_ bool类型
 ' _At 时间类型
+
+' 类名_
+' 内容驼峰
+
 class activity <<活动>>{
     +id : int11 <主键>
     #partnerID:int11<合作方ID>
@@ -20,8 +24,8 @@ class activity <<活动>>{
     price:int11<门票价格/分>
     total:int11<报名上限>
     content:text<活动详情>
-   
-    status:varchar64<活动状态>
+    ischecked:int1<是否需要核实>// 0 1
+    status:varchar64<活动状态> //编辑中0 进行中1 结束2
     accept:int11<已报名>
     deletedAt: int11<删除时间>
     createdAt: timestamps <创建时间>
@@ -69,9 +73,13 @@ activity_tag o-- activity
 class wine <<红酒>>{
     +id:int10 <主键>
 	wine100_no:varchar32 <编号>
+    #prizeID:int11<关联goods_prize>
+    #categoryID:int11<关联category>
+    #countryID:int11<关联country>
+    #grapeTypeID:int11<关联grapeType>
     pic1:varchar512 <酒品图片>
-    winename_cn:varchar255 <中文酒名>
-	winename_en:varchar255 <英文酒名>
+    winenameCn:varchar255 <中文酒名>
+	winenameEn:varchar255 <英文酒名>
     country:varchar255 <国家>
     Grape_type:varchar255 <葡萄种类>
     vintage:varchar32 <年份>
@@ -82,33 +90,33 @@ class wine <<红酒>>{
 	createdAt:timestamps <创建时间>
 	updatedAt:timestamps <更新时间>
 }
-class wine_price<<奖项>>{
+class price<<奖项>>{
     +id:int11<主键>
-    #wineID:int11<红酒ID>
-    text:varchar255<内容>
+    name:varchar255<内容>
     createdAt:timestamps <创建时间>
 	updatedAt:timestamps <更新时间>
 }
-class wine_category<<类别>>{
+class category<<类别>>{
     +id:int11<主键>
-    #wineID:int11<红酒ID>
-    text:varchar255<内容>
+    name:varchar255<内容>
     createdAt:timestamps <创建时间>
 	updatedAt:timestamps <更新时间>
 }
-
-wine_price o-- wine
-wine_category o-- wine
 class  country<<国家>>{
     +id:int11<主键>
-    text:varchar255<内容>
+    name:varchar255<内容>
     createdAt:timestamps <创建时间>
 	updatedAt:timestamps <更新时间>
 }
-class  Grape_type<<葡萄种类>>{
+class  grape_type<<葡萄种类>>{
     +id:int11<主键>
-    text:varchar255<内容>
+    name:varchar255<内容>
     createdAt:timestamps <创建时间>
 	updatedAt:timestamps <更新时间>
 }
+wine o-- price
+wine o--- category
+wine o--- country
+wine o--- grape_type
+
 @enduml
