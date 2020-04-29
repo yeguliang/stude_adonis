@@ -1,43 +1,79 @@
-import React from 'react';
-import {connect} from "dva";
-import PropTypes from 'prop-types';
+import React from "react";
+import { connect } from "dva";
+import PropTypes from "prop-types";
 
-import {allUserData,creatUser,findUser,updataUser,deleteUser} from "./../services/api"
+import {
+  allUserData,
+  creatUser,
+  findUser,
+  updataUser,
+  deleteUser,
+  uploadFile,
+} from "./../services/api";
 
-class IndexPage extends React.Component{
-  state={
-    allUserInformation:null,
-    name:"",
-    password:"",
-    sex:0,
+class IndexPage extends React.Component {
+  state = {
+    allUserInformation: null,
+    name: "",
+    password: "",
+    sex: 0,
+    form_Data: null,
+  };
+  componentDidMount() {
+    this.getAllUser();
   }
-  componentDidMount(){
-    this.getAllUser()
-  }
-  getAllUser = async ()=>{
-    let allUserInformation = await allUserData()
-    this.setState({allUserInformation})
-  }
-  delete_user = async (i)=>{
-    let allUserInformation = await deleteUser({params:{id:`${i}`}})
-    await this.getAllUser()
-  }
-  creat_user = async ()=>{
-    const {name,password,sex} = this.state
-    await creatUser({params:{name,password,sex:(sex-0)}})
-    await this.getAllUser()
-  }
-  updata_user = async (i)=>{
-    const {name,password,sex} = this.state
-    await updataUser({params:{id:i,name,password,sex:(sex-0)}})
-    await this.getAllUser()
-  }
-  render(){
-    const {  allUserInformation ,name,password} = this.state
+  getAllUser = async () => {
+    let allUserInformation = await allUserData();
+    this.setState({ allUserInformation });
+  };
+  delete_user = async (i) => {
+    let allUserInformation = await deleteUser({ params: { id: `${i}` } });
+    await this.getAllUser();
+  };
+  creat_user = async () => {
+    const { name, password, sex } = this.state;
+    await creatUser({ params: { name, password, sex: sex - 0 } });
+    await this.getAllUser();
+  };
+  updata_user = async (i) => {
+    const { name, password, sex } = this.state;
+    await updataUser({ params: { id: i, name, password, sex: sex - 0 } });
+    await this.getAllUser();
+  };
+  submit = async () => {
+    let { form_Data } = this.state;
+    let formdata = new FormData();
+    for (let i in form_Data) {
+      formdata.append(`file`, form_Data[i]);
+    }
+    let re = await uploadFile({ params: formdata });
+    console.log("=>", re);
+  };
+  render() {
+    const { allUserInformation, name, password } = this.state;
     return (
       <div>
-        <h3 style={{display:'flex',textAlign:'center',margin:'20px'}}>我是首页</h3>
-        <div style={{display:'flex',flexDirection:'column',margin:'20px'}}>
+        <h3 style={{ display: "flex", textAlign: "center", margin: "20px" }}>
+          我是首页
+        </h3>
+        <input
+          type="file"
+          // name="profile_pic"
+          multiple="multiplt"
+          onChange={(e) => {
+            console.log(e.target.files);
+            this.setState({ form_Data: e.target.files });
+          }}
+        />
+        <button
+          type="submit"
+          onClick={() => {
+            this.submit();
+          }}
+        >
+          Submit
+        </button>
+        {/* <div style={{display:'flex',flexDirection:'column',margin:'20px'}}>
           <input type='text' value={name} onChange={(e)=>{
             this.setState({name:e.target.value})
           }}/> <br/>  
@@ -67,21 +103,20 @@ class IndexPage extends React.Component{
             </ul>
             )):null   
           }
-        </div>  
+        </div>   */}
       </div>
-    )
+    );
   }
 }
 
 // 类型检查：
 IndexPage.propTypes = {
   // content:PropTypes.string.isRequired
-} 
+};
 
-
-const mapStateToProps=({indexPage})=>{
+const mapStateToProps = ({ indexPage }) => {
   return {
-    indexPage:indexPage
-  }
-}
+    indexPage: indexPage,
+  };
+};
 export default connect(mapStateToProps)(IndexPage);

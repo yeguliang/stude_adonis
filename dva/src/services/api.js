@@ -1,4 +1,10 @@
-import {requestGet,requestDelete,requestPost,requestPatch,requestPut} from '../utils/request';
+import {
+  requestGet,
+  requestDelete,
+  requestPost,
+  requestPatch,
+  requestPut,
+} from "../utils/request";
 
 // export function requestGet(url, body) {
 //   return request(url, { method: "GET", body })
@@ -25,17 +31,20 @@ import {requestGet,requestDelete,requestPost,requestPatch,requestPut} from '../u
 //   return requestPost('/api/postData',params)
 // }
 export function allUserData() {
-  return requestGet('/user')
+  return requestGet("/user");
 }
-export function creatUser({params}) {
-  return requestPost('/user',params)
+export function creatUser({ params }) {
+  return requestPost("/user", params);
 }
-export function findUser({params}) {
-  return requestGet(`/user/${params.id}`)
+export function findUser({ params }) {
+  return requestGet(`/user/${params.id}`);
 }
-export function updataUser({params}) {
-  return requestPatch(`/user/${params.id}`,params)
+export function updataUser({ params }) {
+  return requestPatch(`/user/${params.id}`, params);
 }
-export function deleteUser({params}) {
-  return requestDelete(`/user/${params.id}`)
+export function deleteUser({ params }) {
+  return requestDelete(`/user/${params.id}`);
+}
+export function uploadFile({ params }) {
+  return requestPost(`/upload`, params);
 }

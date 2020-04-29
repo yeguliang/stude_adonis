@@ -14,9 +14,11 @@ const Env = use("Env");
 // 需要登录
 Route.group(() => {
   Route.resource("user", "UserController"); //用户地址
-})
-  // .prefix("admin/v1")
-  .namespace("Admin");
+  Route.resource("upload", "UploadController"); //用户地址
+});
+// Route.group(() => {});
+// .prefix("admin/v1")
+// .namespace("Admin");
 // .middleware(["auth"]);
 
 // // 文件上传接口
